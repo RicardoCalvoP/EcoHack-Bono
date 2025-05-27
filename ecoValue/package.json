@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node scripts/signature.js && vite --clearScreen false",
     "start": "node scripts/signature.js && vite --clearScreen false",
-    "build": "vite build",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -24,6 +24,8 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
     "vite": "^6.3.5"
   }
 }

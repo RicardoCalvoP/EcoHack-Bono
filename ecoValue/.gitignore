@@ -6,31 +6,19 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-# dependencias
-/node_modules
 
-# producción
-/build
+node_modules
+dist
+dist-ssr
+*.local
 
-# configuraciones del entorno
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# editor
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
-
-# sistema operativo
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
-Thumbs.db
-
-# testing
-/coverage
-
-# archivos de cache
-/.cache
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
