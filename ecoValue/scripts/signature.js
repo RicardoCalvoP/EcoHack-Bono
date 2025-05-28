@@ -7,6 +7,5 @@ figlet('Eco { Value } ', (err, data) => {
     console.log('Error generando ASCII');
     return;
   }
-  console.log(data);
-  console.log('\n 🌱 Hecho con ♥ para el EcoHack-Bono\n');
+  console.log('\x1b[32m%s\x1b[0m', data); // Color verde
 });
