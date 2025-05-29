@@ -48,12 +48,12 @@ const CalculatorDashboard: React.FC<CalculatorDashboardProps> = ({
   resultadoTotal, setResultadoTotal
 }) => {
   useEffect(() => {
-    const rElectricidad = electricidad * 0.000425;
-    const rHorno = hornoGasNatural * 0.0022;
-    const rCaldera = calderaGLP * 0.0022;
-    const rGasolina = vehiculosGasolina * 0.0032;
-    const rDiesel = camionesDiesel * 0.0038;
-    const rMontacargas = montacargasGLP * 0.0022;
+    const rElectricidad = electricidad * 0.425;
+    const rHorno = hornoGasNatural * 1.95;
+    const rCaldera = calderaGLP * 1.55;
+    const rGasolina = vehiculosGasolina * 2.31;
+    const rDiesel = camionesDiesel * 2.68;
+    const rMontacargas = montacargasGLP * 1.55;
 
     const total = rElectricidad + rHorno + rCaldera + rGasolina + rDiesel + rMontacargas;
 
