@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  background-color: white;
   padding: 0 5rem;
 }
 
@@ -41,8 +40,8 @@
 
 .Card-content {
   flex: 1 1 0;
-  background-color: #eff9f9;
-  border: 1px solid #f1f5f9;
+  background-color: white;
+  border: 2px solid #e4e7eb;
   height: 10rem;
   border-radius: 8px;
   padding: 1rem;
@@ -103,12 +102,10 @@
   transition: all 0.2s ease-in-out;
 }
 
-/* Que no se encojan demasiado */
 .ButtonMenu button {
   min-width: 120px;
 }
 
-/* Estilo cuando está clicado */
 .ButtonMenu button.isClicked {
   background-color: white;
   border-color: #f1f5f9;
@@ -116,4 +113,133 @@
 }
 
 
-.Dashboard-content {}
+.calculator-dashboard {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.Calculator {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0.5rem 0;
+  box-sizing: border-box;
+}
+
+.Calculator-content {
+  height: 25rem;
+  width: 49%;
+  background-color: white;
+  border: 2px solid #e4e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.Calculator-title {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
+.InputMenu {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.InputMenu-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.InputMenu-label {
+  align-self: flex-start;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.InputMenu-content input {
+  width: 100%;
+  max-width: 17rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.Calculator-content {
+  height: auto;
+  width: 49%;
+  background-color: white;
+  border: 2px solid #e4e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.Calculator-title {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-bottom: 1rem;
+}
+
+.Calculator-results {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.Calculator-results p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  border: 2px solid #e4e7eb;
+  height: 3rem;
+  border-radius: 8px;
+}
+
+.Calculator-results-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9fafb;
+  height: 3rem;
+  margin: 0.75rem 0;
+  padding: 0 1rem;
+  border-radius: 6px;
+}
+
+.Calculator-results-subtitle {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #333;
+}
+
+.Calculator-results-subtitle svg {
+  margin-right: 0.5rem;
+}
+
+
+.Calculator-results-result {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #111;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.units {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #333;
+}
