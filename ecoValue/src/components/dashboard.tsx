@@ -5,14 +5,6 @@ import CalculatorDashboard from "./calculator/CalculatorDashboard";
 import RecommendationDashboard from "./recomendation/RecomendationDashboard";
 import { Calculator, TrendingDown, Leaf, Factory } from "lucide-react";
 
-type CardItem = {
-  title: string;
-  result: string;
-  subtitle: string;
-  icon: React.ReactNode;
-  warning: string;
-};
-
 export type ComboItems = {
   mainCategory: string; // Main category for the combo
   electricityTechnology: string;
