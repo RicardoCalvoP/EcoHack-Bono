@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ButtonsHeaders from "./ButtonsHeaders";
-import CardMenu from "./CardMenu";
+import CardMenu, { type CardItem } from "./CardMenu";
 import CalculatorDashboard from "./calculator/CalculatorDashboard";
 import RecommendationDashboard from "./recomendation/RecomendationDashboard";
 import { Calculator, TrendingDown, Leaf, Factory } from "lucide-react";
@@ -29,6 +29,8 @@ export type ComboItems = {
   forkliftLPGCost: number;
   totalCost: number;
 }
+
+import Analyisis from "./analysis/Analyisis";
 
 const Dashboard: React.FC = () => {
 
@@ -382,7 +384,7 @@ const Dashboard: React.FC = () => {
           category={calcularCategoriaMayor()}
           combos={Combos}
         />}
-      {activeTab === 2 && <div>Análisis componente aquí</div>}
+      {activeTab === 2 && <Analyisis />}
     </div>
   );
 };

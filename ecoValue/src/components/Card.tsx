@@ -1,24 +1,37 @@
 import React from "react";
 
-type ButtonProps = {
+type CardProps = {
   title: string;
   result: string;
-  subtitle: string;
+  subtitle?: string;
   icon: React.ReactNode;
-  warning: string;
+  warning: "low" | "medium" | "high";
 };
 
-const Card: React.FC<ButtonProps> = ({ title, result, subtitle, icon, warning }) => {
+const warningColors: Record<CardProps["warning"], string> = {
+  low: 'text-green-600 dark:text-green-400',
+  medium: 'text-yellow-600 dark:text-yellow-400',
+  high: 'text-red-600 dark:text-red-400',
+};
+
+const Card: React.FC<CardProps> = ({ title, result, subtitle, icon, warning }) => {
+  const colorClass = warningColors[warning];
   return (
-    <div className="Card-content">
-      <div className="Card-header">
-        <div className="Card-title">{title}</div>
+    <div className="rounded-2xl shadow-lg bg-white dark:bg-zinc-800 p-6 flex flex-col justify-between
+                    transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl">
+
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-200">{title}</h3>
+        <div className={colorClass}>{icon}</div>
       </div>
-      <div className={`Card-result Card-result-${warning}`}>
-        <p>{result}</p>
-        <div className="Card-icon">{icon}</div>
+
+      <div className="flex flex-col items-start gap-1">
+        <span className={`text-3xl font-bold ${colorClass}`}>{result}</span>
+        {subtitle && (
+          <span className="text-sm text-gray-500 dark:text-gray-400">{subtitle}</span>
+        )}
       </div>
-      {subtitle && <p className="Card-subtitle">{subtitle}</p>}
+
     </div>
   );
 };
