@@ -1,52 +1,100 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Calculator from "./Calculator";
 import Results from "./Results";
 
-const CalculatorDashboard: React.FC = () => {
-  const [electricidad, setElectricidad] = useState(0);
-  const [gasNatural, setGasNatural] = useState(0);
-  const [combustible, setCombustible] = useState(0);
-  const [vuelos, setVuelos] = useState(0);
-  const [residuos, setResiduos] = useState(0);
-  const [agua, setAgua] = useState(0);
+type CalculatorDashboardProps = {
+  electricidad: number;
+  setElectricidad: (value: number) => void;
+  hornoGasNatural: number;
+  setHornoGasNatural: (value: number) => void;
+  calderaGLP: number;
+  setCalderaGLP: (value: number) => void;
+  vehiculosGasolina: number;
+  setVehiculosGasolina: (value: number) => void;
+  camionesDiesel: number;
+  setCamionesDiesel: (value: number) => void;
+  montacargasGLP: number;
+  setMontacargasGLP: (value: number) => void;
 
-  // Ejemplo simple de cálculo de emisiones (puedes usar factores reales)
-  const total =
-    electricidad * 0.0005 +
-    gasNatural * 0.002 +
-    combustible * 0.0024 +
-    vuelos * 0.0001 +
-    residuos * 0.001 +
-    agua * 0.0002;
+  resultadoElectricidad: number;
+  setResultadoElectricidad: (value: number) => void;
+  resultadoHornoGasNatural: number;
+  setResultadoHornoGasNatural: (value: number) => void;
+  resultadoCalderaGLP: number;
+  setResultadoCalderaGLP: (value: number) => void;
+  resultadoVehiculosGasolina: number;
+  setResultadoVehiculosGasolina: (value: number) => void;
+  resultadoCamionesDiesel: number;
+  setResultadoCamionesDiesel: (value: number) => void;
+  resultadoMontacargasGLP: number;
+  setResultadoMontacargasGLP: (value: number) => void;
+  resultadoTotal: number;
+  setResultadoTotal: (value: number) => void;
+};
+
+const CalculatorDashboard: React.FC<CalculatorDashboardProps> = ({
+  electricidad, setElectricidad,
+  hornoGasNatural, setHornoGasNatural,
+  calderaGLP, setCalderaGLP,
+  vehiculosGasolina, setVehiculosGasolina,
+  camionesDiesel, setCamionesDiesel,
+  montacargasGLP, setMontacargasGLP,
+  resultadoElectricidad, setResultadoElectricidad,
+  resultadoHornoGasNatural, setResultadoHornoGasNatural,
+  resultadoCalderaGLP, setResultadoCalderaGLP,
+  resultadoVehiculosGasolina, setResultadoVehiculosGasolina,
+  resultadoCamionesDiesel, setResultadoCamionesDiesel,
+  resultadoMontacargasGLP, setResultadoMontacargasGLP,
+  resultadoTotal, setResultadoTotal
+}) => {
+  useEffect(() => {
+    const rElectricidad = electricidad * 0.000425;
+    const rHorno = hornoGasNatural * 0.0022;
+    const rCaldera = calderaGLP * 0.0022;
+    const rGasolina = vehiculosGasolina * 0.0032;
+    const rDiesel = camionesDiesel * 0.0038;
+    const rMontacargas = montacargasGLP * 0.0022;
+
+    const total = rElectricidad + rHorno + rCaldera + rGasolina + rDiesel + rMontacargas;
+
+    setResultadoElectricidad(rElectricidad);
+    setResultadoHornoGasNatural(rHorno);
+    setResultadoCalderaGLP(rCaldera);
+    setResultadoVehiculosGasolina(rGasolina);
+    setResultadoCamionesDiesel(rDiesel);
+    setResultadoMontacargasGLP(rMontacargas);
+    setResultadoTotal(total);
+  }, [
+    electricidad, hornoGasNatural, calderaGLP,
+    vehiculosGasolina, camionesDiesel, montacargasGLP
+  ]);
 
   return (
     <div className="calculator-dashboard">
-      <h1>Calculator Dashboard</h1>
       <div className="Calculator">
         <Calculator
           electricidad={electricidad}
           setElectricidad={setElectricidad}
-          gasNatural={gasNatural}
-          setGasNatural={setGasNatural}
-          combustible={combustible}
-          setCombustible={setCombustible}
-          vuelos={vuelos}
-          setVuelos={setVuelos}
-          residuos={residuos}
-          setResiduos={setResiduos}
-          agua={agua}
-          setAgua={setAgua}
+          hornoGasNatural={hornoGasNatural}
+          setHornoGasNatural={setHornoGasNatural}
+          calderaGLP={calderaGLP}
+          setCalderaGLP={setCalderaGLP}
+          vehiculosGasolina={vehiculosGasolina}
+          setVehiculosGasolina={setVehiculosGasolina}
+          camionesDiesel={camionesDiesel}
+          setCamionesDiesel={setCamionesDiesel}
+          montacargasGLP={montacargasGLP}
+          setMontacargasGLP={setMontacargasGLP}
         />
         <Results
-          total={total}
-          electricidad={electricidad}
-          gasNatural={gasNatural}
-          combustible={combustible}
-          vuelos={vuelos}
-          residuos={residuos}
-          agua={agua}
+          total={resultadoTotal}
+          electricidad={resultadoElectricidad}
+          hornoGasNatural={resultadoHornoGasNatural}
+          calderaGLP={resultadoCalderaGLP}
+          vehiculosGasolina={resultadoVehiculosGasolina}
+          camionesDiesel={resultadoCamionesDiesel}
+          montacargasGLP={resultadoMontacargasGLP}
         />
-
       </div>
     </div>
   );

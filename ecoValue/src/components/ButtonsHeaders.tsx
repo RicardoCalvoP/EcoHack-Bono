@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 
 type ButtonsHeadersProps = {
   headers: string[];
   onHeaderClick: (index: number) => void;
-};
+  activeTab: number;
+}
 
-const ButtonsHeaders: React.FC<ButtonsHeadersProps> = ({ headers, onHeaderClick }) => {
-  const [clickedIndex, setClickedIndex] = useState<number | null>(null);
+
+const ButtonsHeaders: React.FC<ButtonsHeadersProps> = ({ headers, onHeaderClick, activeTab }) => {
 
   const handleClick = (index: number) => {
-    setClickedIndex(index);
     onHeaderClick(index); // comunicar al componente padre
   };
 
@@ -19,7 +19,7 @@ const ButtonsHeaders: React.FC<ButtonsHeadersProps> = ({ headers, onHeaderClick 
         <button
           key={index}
           onClick={() => handleClick(index)}
-          className={`button ${clickedIndex === index ? "isClicked" : ""}`}
+          className={`button ${activeTab === index ? "isClicked" : ""}`}
         >
           {header}
         </button>
