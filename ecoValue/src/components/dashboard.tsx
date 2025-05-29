@@ -1,16 +1,9 @@
 import { useState } from "react";
 import ButtonsHeaders from "./ButtonsHeaders";
-import CardMenu from "./CardMenu";
+import CardMenu, { type CardItem } from "./CardMenu";
 import CalculatorDashboard from "./calculator/CalculatorDashboard";
+import Analyisis from "./analysis/Analyisis";
 import { Calculator, TrendingDown, Leaf, Factory } from "lucide-react";
-
-type CardItem = {
-  title: string;
-  result: string;
-  subtitle: string;
-  icon: React.ReactNode;
-  warning: string;
-};
 
 const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -132,7 +125,7 @@ const Dashboard: React.FC = () => {
         setResultadoTotal={setResultadoTotal}
 
       />}
-      {activeTab === 1 && <div>Análisis componente aquí</div>}
+      {activeTab === 1 && <Analyisis />}
       {activeTab === 2 && <div>Recomendaciones componente aquí</div>}
     </div>
   );

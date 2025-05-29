@@ -17,7 +17,6 @@
   font-weight: bold;
 }
 
-
 .Dashboard-icon {
   margin-right: 1rem;
   color: #22c55e
@@ -27,61 +26,6 @@
   font-size: 1.2rem;
   color: #6b7280;
   margin-top: -1rem;
-}
-
-.CardMenu {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 2rem 0;
-  gap: 16px;
-  box-sizing: border-box;
-}
-
-
-.Card-content {
-  flex: 1 1 0;
-  background-color: white;
-  border: 2px solid #e4e7eb;
-  height: 10rem;
-  border-radius: 8px;
-  padding: 1rem;
-  box-sizing: border-box;
-  max-width: 22rem;
-}
-
-.Card-header {
-  display: flex;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.Card-result {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 2rem;
-  font-weight: bold;
-  max-height: 2rem;
-}
-
-.Card-result-low {
-  color: #22c55e;
-}
-
-.Card-result-medium {
-  color: #ea580c;
-}
-
-.Card-result-high {
-  color: #dc2626;
-}
-
-
-.Card-icon {
-  margin-left: 1rem;
 }
 
 .ButtonMenu {
