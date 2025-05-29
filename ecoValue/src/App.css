@@ -28,37 +28,6 @@
   margin-top: -1rem;
 }
 
-.ButtonMenu {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.ButtonMenu button {
-  background-color: #f1f5f9;
-  border: 0.2rem solid #f1f5f9;
-  color: #94a0b0;
-  flex: 1;
-  text-align: center;
-  padding: 0.75rem 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.ButtonMenu button {
-  min-width: 120px;
-}
-
-.ButtonMenu button.isClicked {
-  background-color: white;
-  border-color: #f1f5f9;
-  color: black;
-}
-
-
 .calculator-dashboard {
   width: 100%;
   box-sizing: border-box;
