@@ -65,7 +65,7 @@ const Analysis: React.FC<AnalysisProps> = () => {
 
   return (
 <div className="container mx-auto px-4 md:px-8 lg:px-16">
-      <h2 className="mt-8 text-3xl md:text-4xl font-bold text-gray-800 dark:text-white text-center">
+      <h2 className="mt-8 text-3xl md:text-4xl font-bold text-gray-800 text-center">
         Resumen de Impacto y Retorno
       </h2>
       <div
