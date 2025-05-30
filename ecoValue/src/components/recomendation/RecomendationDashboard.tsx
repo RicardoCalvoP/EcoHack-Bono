@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { type ComboItems } from "../dashboard";
 
 type RecommendationDashboardProps = {
   category: string;
   combos: ComboItems[];
+  combo: 0 | 1;
+  setCombo: React.Dispatch<React.SetStateAction<0 | 1>>;
 };
 
-const RecommendationDashboard: React.FC<RecommendationDashboardProps> = ({ category, combos }) => {
-  const [combo, setCombo] = useState<0 | 1>(0);
+const RecommendationDashboard: React.FC<RecommendationDashboardProps> = ({ category, combos, combo, setCombo }) => {
 
   const filetedCombos = combos.filter(combo => combo.mainCategory === category);
   const actualCombo = filetedCombos[combo];
 
 
-  const actualComboTotalCost = actualCombo.mainCategoryCost * actualCombo.mainCategoryEmision;
+  const actualComboTotalCost = actualCombo.mainCategoryCost * actualCombo.mainCategoryEmission;
 
 
   return (

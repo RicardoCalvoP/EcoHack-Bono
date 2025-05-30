@@ -4,16 +4,28 @@ import CardMenu, { type CardItem } from "./CardMenu";
 import CalculatorDashboard from "./calculator/CalculatorDashboard";
 import RecommendationDashboard from "./recomendation/RecomendationDashboard";
 import { Calculator, TrendingDown, Leaf, Factory } from "lucide-react";
+import Analysis from "./analysis/Analysis";
 
 export type ComboItems = {
   mainCategory: string; // Main category for the combo
   mainCategoryTechnology: string; // Technology used in the main category
   mainCategoryCost: number; // Cost of the main category technology
-  mainCategoryEmision: number;
+  mainCategoryEmission: number;
   note: string;
 }
 
-import Analyisis from "./analysis/Analyisis";
+export type AnalysisItems = {
+  mainCategory: string,
+  CO2Reduction: number;
+  eclecticReduction: number;
+  energeticSaving: number;
+  initialInversion: number;
+  economicSaving: number;
+  ROI: number;
+  payback: number;
+  utilLife: number;
+}
+
 
 const Dashboard: React.FC = () => {
 
@@ -44,8 +56,7 @@ const Dashboard: React.FC = () => {
   const [resultadoMontacargasGLP, setResultadoMontacargasGLP] = useState(0); // tCO2e
   const [resultadoTotal, setResultadoTotal] = useState(0); // tCO2e
 
-
-
+  const [combo, setCombo] = useState<0 | 1>(0);
 
   // =======================
   // Functions
@@ -57,16 +68,16 @@ const Dashboard: React.FC = () => {
   // and return the name of that category
 
   function calcularCategoriaMayor(): string {
-    const categorias = [
-      { nombre: "Electricidad", valor: resultadoElectricidad },
-      { nombre: "Gas Natural", valor: resultadoHornoGasNatural },
-      { nombre: "Caldera GLP", valor: resultadoCalderaGLP },
-      { nombre: "Vehículos", valor: resultadoVehiculosGasolina },
-      { nombre: "Camiones", valor: resultadoCamionesDiesel },
-      { nombre: "Montacargas", valor: resultadoMontacargasGLP },
+    const categories = [
+      { name: "Electricidad", valor: resultadoElectricidad },
+      { name: "Gas Natural", valor: resultadoHornoGasNatural },
+      { name: "Caldera GLP", valor: resultadoCalderaGLP },
+      { name: "Vehículos", valor: resultadoVehiculosGasolina },
+      { name: "Camiones", valor: resultadoCamionesDiesel },
+      { name: "Montacargas", valor: resultadoMontacargasGLP },
     ];
 
-    return categorias.sort((a, b) => b.valor - a.valor)[0].nombre;
+    return categories.sort((a, b) => b.valor - a.valor)[0].name;
   }
 
   // Calculate the equivalent number of trees that would need to be planted
@@ -125,7 +136,7 @@ const Dashboard: React.FC = () => {
       mainCategory: "Electricidad",
       mainCategoryTechnology: "PPA",
       mainCategoryCost: 0.07, // USD por kWh*mes
-      mainCategoryEmision: resultadoElectricidad,
+      mainCategoryEmission: electricity,
       note: "Costo Mensual",
 
     },
@@ -133,7 +144,7 @@ const Dashboard: React.FC = () => {
       mainCategory: "Electricidad",
       mainCategoryTechnology: "Panel Solar",
       mainCategoryCost: 1240, // USD
-      mainCategoryEmision: electricityKWpH,
+      mainCategoryEmission: electricityKWpH,
       note: "Costo de contado",
     },
     // Furnace Combo ()
@@ -141,14 +152,14 @@ const Dashboard: React.FC = () => {
       mainCategory: "Gas Natural",
       mainCategoryTechnology: "Horno Automático",
       mainCategoryCost: 25000, // USD por horno
-      mainCategoryEmision: 1,
+      mainCategoryEmission: 1,
       note: "Costo de contado",
     },
     {
       mainCategory: "Gas Natural",
       mainCategoryTechnology: "Horno Eléctrico",
       mainCategoryCost: 100000, // USD por horno
-      mainCategoryEmision: 1,
+      mainCategoryEmission: 1,
       note: "Costo de contado",
     },
     // Boiler Combo
@@ -156,14 +167,14 @@ const Dashboard: React.FC = () => {
       mainCategory: "Caldera GLP",
       mainCategoryTechnology: "Boiler Automático",
       mainCategoryCost: 25000, // USD por horno
-      mainCategoryEmision: 1,
+      mainCategoryEmission: 1,
       note: "Costo de contado",
     },
     {
       mainCategory: "Caldera GLP",
       mainCategoryTechnology: "Boiler Eléctrico",
       mainCategoryCost: 50000, // USD por horno
-      mainCategoryEmision: 1,
+      mainCategoryEmission: 1,
       note: "Costo de contado",
     },
     // Gas Vehicles Combo
@@ -171,14 +182,14 @@ const Dashboard: React.FC = () => {
       mainCategory: "Vehículos",
       mainCategoryTechnology: "Vehículo Híbrido",
       mainCategoryCost: 25000, // USD
-      mainCategoryEmision: 1,
+      mainCategoryEmission: 1,
       note: "Costo de contado",
     },
     {
       mainCategory: "Vehículos",
       mainCategoryTechnology: "Vehículo Eléctrico",
       mainCategoryCost: 40000, // USD
-      mainCategoryEmision: 1,
+      mainCategoryEmission: 1,
       note: "Costo de contado",
     },
     // Deisel Vehicles Combo
@@ -186,14 +197,14 @@ const Dashboard: React.FC = () => {
       mainCategory: "Camiones",
       mainCategoryTechnology: "Camión Híbrido",
       mainCategoryCost: 80000, // USD
-      mainCategoryEmision: 1,
+      mainCategoryEmission: 1,
       note: "Costo de contado",
     },
     {
       mainCategory: "Camiones",
       mainCategoryTechnology: "Camión Eléctrico",
       mainCategoryCost: 200000, // USD
-      mainCategoryEmision: 1,
+      mainCategoryEmission: 1,
       note: "Costo de contado",
     },
     // Forklift Vehicles Combo
@@ -201,17 +212,166 @@ const Dashboard: React.FC = () => {
       mainCategory: "Montacargas",
       mainCategoryTechnology: "Montacargas Híbrido",
       mainCategoryCost: 30000, // USD
-      mainCategoryEmision: 1,
+      mainCategoryEmission: 1,
       note: "Costo de contado",
     },
     {
       mainCategory: "Montacargas",
       mainCategoryTechnology: "Montacargas Eléctrico",
       mainCategoryCost: 45000, // USD
-      mainCategoryEmision: 1,
+      mainCategoryEmission: 1,
       note: "Costo de contado",
     }
   ];
+
+  // Analyisis Calculations
+
+  const analysisSets: AnalysisItems[] = [
+    // Electricidad
+    {
+      mainCategory: "Electricidad",
+      CO2Reduction: 1,
+      eclecticReduction: 1,
+      energeticSaving: 1,
+      initialInversion: 1,
+      economicSaving: 1,
+      ROI: 1,
+      payback: 1,
+      utilLife: 1,
+    },
+    {
+      mainCategory: "Electricidad",
+      CO2Reduction: 2,
+      eclecticReduction: 2,
+      energeticSaving: 2,
+      initialInversion: 2,
+      economicSaving: 2,
+      ROI: 2,
+      payback: 2,
+      utilLife: 2,
+    },
+
+    // Gas Natural
+    {
+      mainCategory: "Gas Natural",
+      CO2Reduction: 1,
+      eclecticReduction: 1,
+      energeticSaving: 1,
+      initialInversion: 1,
+      economicSaving: 1,
+      ROI: 1,
+      payback: 1,
+      utilLife: 1,
+    },
+    {
+      mainCategory: "Gas Natural",
+      CO2Reduction: 2,
+      eclecticReduction: 2,
+      energeticSaving: 2,
+      initialInversion: 2,
+      economicSaving: 2,
+      ROI: 2,
+      payback: 2,
+      utilLife: 2,
+    },
+
+    // Caldera GLP
+    {
+      mainCategory: "Caldera GLP",
+      CO2Reduction: 1,
+      eclecticReduction: 1,
+      energeticSaving: 1,
+      initialInversion: 1,
+      economicSaving: 1,
+      ROI: 1,
+      payback: 1,
+      utilLife: 1,
+    },
+    {
+      mainCategory: "Caldera GLP",
+      CO2Reduction: 2,
+      eclecticReduction: 2,
+      energeticSaving: 2,
+      initialInversion: 2,
+      economicSaving: 2,
+      ROI: 2,
+      payback: 2,
+      utilLife: 2,
+    },
+
+    // Vehículos
+    {
+      mainCategory: "Vehículos",
+      CO2Reduction: 1,
+      eclecticReduction: 1,
+      energeticSaving: 1,
+      initialInversion: 1,
+      economicSaving: 1,
+      ROI: 1,
+      payback: 1,
+      utilLife: 1,
+    },
+    {
+      mainCategory: "Vehículos",
+      CO2Reduction: 2,
+      eclecticReduction: 2,
+      energeticSaving: 2,
+      initialInversion: 2,
+      economicSaving: 2,
+      ROI: 2,
+      payback: 2,
+      utilLife: 2,
+    },
+
+    // Camiones
+    {
+      mainCategory: "Camiones",
+      CO2Reduction: 1,
+      eclecticReduction: 1,
+      energeticSaving: 1,
+      initialInversion: 1,
+      economicSaving: 1,
+      ROI: 1,
+      payback: 1,
+      utilLife: 1,
+    },
+    {
+      mainCategory: "Camiones",
+      CO2Reduction: 2,
+      eclecticReduction: 2,
+      energeticSaving: 2,
+      initialInversion: 2,
+      economicSaving: 2,
+      ROI: 2,
+      payback: 2,
+      utilLife: 2,
+    },
+
+    // Montacargas
+    {
+      mainCategory: "Montacargas",
+      CO2Reduction: 1,
+      eclecticReduction: 1,
+      energeticSaving: 1,
+      initialInversion: 1,
+      economicSaving: 1,
+      ROI: 1,
+      payback: 1,
+      utilLife: 1,
+    },
+    {
+      mainCategory: "Montacargas",
+      CO2Reduction: 2,
+      eclecticReduction: 2,
+      energeticSaving: 2,
+      initialInversion: 2,
+      economicSaving: 2,
+      ROI: 2,
+      payback: 2,
+      utilLife: 2,
+    },
+  ];
+
 
   return (
     <div className="Dashboard-content">
@@ -265,8 +425,15 @@ const Dashboard: React.FC = () => {
         <RecommendationDashboard
           category={calcularCategoriaMayor()}
           combos={Combos}
+          combo={combo}
+          setCombo={setCombo}
         />}
-      {activeTab === 2 && <Analyisis />}
+      {activeTab === 2 && <Analysis
+        category={calcularCategoriaMayor()}
+        analysisSets={analysisSets}
+        combos={Combos}
+        combo={combo}
+      />}
     </div>
   );
 };

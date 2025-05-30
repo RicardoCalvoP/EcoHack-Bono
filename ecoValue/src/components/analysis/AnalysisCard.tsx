@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface AnalysisCardProps {
   title: string;
-  result: string;
+  result: number;
   subtitle?: string;
   icon: React.ReactNode;
   warning?: 'low' | 'medium' | 'high';
@@ -10,7 +10,7 @@ export interface AnalysisCardProps {
 }
 
 const warningColors = {
-  low:  'text-green-600',
+  low: 'text-green-600',
   medium: 'text-yellow-600',
   high: 'text-red-600',
 };
