@@ -35,7 +35,7 @@ const Dashboard: React.FC = () => {
 
   // Value of each input in the calculator
   // These values will be updated by the CalculatorDashboard component
-  const [electricidad, setElectricidad] = useState(0); // kWh
+  const [electricity, setElectricidad] = useState(0); // kWh
   const [hornoGasNatural, setHornoGasNatural] = useState(0); // m3
   const [calderaGLP, setCalderaGLP] = useState(0); // litros
   const [vehiculosGasolina, setVehiculosGasolina] = useState(0); // litros
@@ -86,6 +86,13 @@ const Dashboard: React.FC = () => {
     return Math.ceil(co2 / CO2_POR_ARBOL);
   }
 
+  function calculateKWpH(kWh: number): number {
+    // Assuming 1 kWh of electricity is equivalent to 0.0005 tons of CO2
+    return kWh / 152;
+  }
+
+  const electricityKWpH = calculateKWpH(electricity);
+
   // =======================
   // Items
   // =======================
@@ -126,11 +133,11 @@ const Dashboard: React.FC = () => {
     {
       mainCategory: "Electricidad",
       electricityTechnology: "PPA",
-      electricityCost: 0.12, // $/kWh
+      electricityCost: 0.07, // USD
       furnaceNaturalGasTechnology: "",
-      furnaceNaturalGasCost: 0.05, // $/m3
+      furnaceNaturalGasCost: 5000, // USD
       boilerLPGTechnology: "",
-      boilerLPGCost: 0.08, // $/litro
+      boilerLPGCost: 2500, // USD
       gasolineVehiclesTechnology: "",
       gasolineVehiclesCost: 1.2, // $/litro
       dieselTrucksTechnology: "",
@@ -142,7 +149,7 @@ const Dashboard: React.FC = () => {
     {
       mainCategory: "Electricidad",
       electricityTechnology: "Paneles Solares",
-      electricityCost: 0.15, // $/kWh
+      electricityCost: 1240, // USD
       furnaceNaturalGasTechnology: "",
       furnaceNaturalGasCost: 0.04, // $/m3
       boilerLPGTechnology: "",
@@ -343,7 +350,7 @@ const Dashboard: React.FC = () => {
 
 
       {activeTab === 0 && <CalculatorDashboard
-        electricidad={electricidad}
+        electricidad={electricity}
         setElectricidad={setElectricidad}
         hornoGasNatural={hornoGasNatural}
         setHornoGasNatural={setHornoGasNatural}
