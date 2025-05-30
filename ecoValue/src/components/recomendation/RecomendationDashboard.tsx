@@ -12,18 +12,8 @@ const RecommendationDashboard: React.FC<RecommendationDashboardProps> = ({ categ
   const filetedCombos = combos.filter(combo => combo.mainCategory === category);
   const actualCombo = filetedCombos[combo];
 
-  const actualComboElectricityCost = actualCombo.electricityCost;
-  const actualComboFurnaceNaturalGasCost = actualCombo.furnaceNaturalGasCost;
-  const actualComboBoilerLPGCost = actualCombo.boilerLPGCost;
-  const actualComboGasolineVehiclesCost = actualCombo.gasolineVehiclesCost;
-  const actualComboDieselTrucksCost = actualCombo.dieselTrucksCost;
-  const actualComboForkliftLPGCost = actualCombo.forkliftLPGCost;
-  const actualComboTotalCost = actualComboElectricityCost +
-    actualComboFurnaceNaturalGasCost +
-    actualComboBoilerLPGCost +
-    actualComboGasolineVehiclesCost +
-    actualComboDieselTrucksCost +
-    actualComboForkliftLPGCost;
+
+  const actualComboTotalCost = actualCombo.mainCategoryCost * actualCombo.mainCategoryEmision;
 
 
   return (
@@ -58,17 +48,14 @@ const RecommendationDashboard: React.FC<RecommendationDashboardProps> = ({ categ
           {combo === 0 ? 'Opción Básica' : 'Opción Óptima'}
         </h2>
         <ul className="space-y-2">
-          <li><span className="font-semibold">Tecnología eléctrica:</span> {actualCombo.electricityTechnology}</li>
-          <li><span className="font-semibold">Gas Natural:</span> {actualCombo.furnaceNaturalGasTechnology}</li>
-          <li><span className="font-semibold">Caldera GLP:</span> {actualCombo.boilerLPGTechnology}</li>
-          <li><span className="font-semibold">Vehículos gasolina:</span> {actualCombo.gasolineVehiclesTechnology}</li>
-          <li><span className="font-semibold">Camiones diésel:</span> {actualCombo.dieselTrucksTechnology}</li>
-          <li><span className="font-semibold">Montacargas GLP:</span> {actualCombo.forkliftLPGTechnology}</li>
+          <li><span className="font-semibold">Tecnología eléctrica:</span> {actualCombo.mainCategoryTechnology}</li>
+
         </ul>
         <div className="pt-4 border-t border-gray-200">
           <p className="text-lg">
             <span className="font-semibold">Costo estimado:</span>{' '}
-            <span className="text-blue-600 font-bold">${actualComboTotalCost} USD</span>
+            <span className="text-blue-600 font-bold">${actualComboTotalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD</span>
+            <span ><br />Nota: {actualCombo.note}</span>
           </p>
         </div>
       </div>

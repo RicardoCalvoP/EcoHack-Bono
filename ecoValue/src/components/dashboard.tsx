@@ -7,19 +7,10 @@ import { Calculator, TrendingDown, Leaf, Factory } from "lucide-react";
 
 export type ComboItems = {
   mainCategory: string; // Main category for the combo
-  electricityTechnology: string;
-  electricityCost: number;
-  furnaceNaturalGasTechnology: string;
-  furnaceNaturalGasCost: number;
-  boilerLPGTechnology: string;
-  boilerLPGCost: number;
-  gasolineVehiclesTechnology: string;
-  gasolineVehiclesCost: number;
-  dieselTrucksTechnology: string;
-  dieselTrucksCost: number;
-  forkliftLPGTechnology: string;
-  forkliftLPGCost: number;
-  totalCost: number;
+  mainCategoryTechnology: string; // Technology used in the main category
+  mainCategoryCost: number; // Cost of the main category technology
+  mainCategoryEmision: number;
+  note: string;
 }
 
 import Analyisis from "./analysis/Analyisis";
@@ -129,204 +120,96 @@ const Dashboard: React.FC = () => {
   ];
 
   const Combos: ComboItems[] = [
-    // Electricity Combo
+    // Electricity Combo (el PPA es un pago constante mientras que el panel solar es un pago de contado grande)
     {
       mainCategory: "Electricidad",
-      electricityTechnology: "PPA",
-      electricityCost: 0.07, // USD
-      furnaceNaturalGasTechnology: "",
-      furnaceNaturalGasCost: 5000, // USD
-      boilerLPGTechnology: "",
-      boilerLPGCost: 2500, // USD
-      gasolineVehiclesTechnology: "",
-      gasolineVehiclesCost: 1.2, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.5, // $/litro
-      forkliftLPGTechnology: "",
-      forkliftLPGCost: 0.07, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
-    },
-    {
-      mainCategory: "Electricidad",
-      electricityTechnology: "Paneles Solares",
-      electricityCost: 1240, // USD
-      furnaceNaturalGasTechnology: "",
-      furnaceNaturalGasCost: 0.04, // $/m3
-      boilerLPGTechnology: "",
-      boilerLPGCost: 0.09, // $/litro
-      gasolineVehiclesTechnology: "",
-      gasolineVehiclesCost: 1.5, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.2, // $/litro
-      forkliftLPGTechnology: "",
-      forkliftLPGCost: 0.06, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
-    },
-    // Furnace Combo
-    {
-      mainCategory: "Gas Natural",
-      electricityTechnology: "",
-      electricityCost: 0.12, // $/kWh
-      furnaceNaturalGasTechnology: "Recuperación de Calor",
-      furnaceNaturalGasCost: 0.05, // $/m3
-      boilerLPGTechnology: "",
-      boilerLPGCost: 0.08, // $/litro
-      gasolineVehiclesTechnology: "",
-      gasolineVehiclesCost: 1.2, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.5, // $/litro
-      forkliftLPGTechnology: "",
-      forkliftLPGCost: 0.07, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
-    },
-    {
-      mainCategory: "Gas Natural",
-      electricityTechnology: "",
-      electricityCost: 0.15, // $/kWh
-      furnaceNaturalGasTechnology: "Horno Electrico",
-      furnaceNaturalGasCost: 0.04, // $/m3
-      boilerLPGTechnology: "",
-      boilerLPGCost: 0.09, // $/litro
-      gasolineVehiclesTechnology: "",
-      gasolineVehiclesCost: 1.5, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.2, // $/litro
-      forkliftLPGTechnology: "",
-      forkliftLPGCost: 0.06, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
-    },
-    // Furnace Combo
-    {
-      mainCategory: "Caldera GLP",
-      electricityTechnology: "",
-      electricityCost: 0.12, // $/kWh
-      furnaceNaturalGasTechnology: "",
-      furnaceNaturalGasCost: 0.05, // $/m3
-      boilerLPGTechnology: "Recuperación de Calor",
-      boilerLPGCost: 0.08, // $/litro
-      gasolineVehiclesTechnology: "",
-      gasolineVehiclesCost: 1.2, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.5, // $/litro
-      forkliftLPGTechnology: "",
-      forkliftLPGCost: 0.07, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
-    },
-    {
-      mainCategory: "Caldera GLP",
-      electricityTechnology: "",
-      electricityCost: 0.15, // $/kWh
-      furnaceNaturalGasTechnology: "",
-      furnaceNaturalGasCost: 0.04, // $/m3
-      boilerLPGTechnology: "Electrico",
-      boilerLPGCost: 0.09, // $/litro
-      gasolineVehiclesTechnology: "",
-      gasolineVehiclesCost: 1.5, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.2, // $/litro
-      forkliftLPGTechnology: "",
-      forkliftLPGCost: 0.06, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
-    },
+      mainCategoryTechnology: "PPA",
+      mainCategoryCost: 0.07, // USD por kWh*mes
+      mainCategoryEmision: resultadoElectricidad,
+      note: "Costo Mensual",
 
+    },
+    {
+      mainCategory: "Electricidad",
+      mainCategoryTechnology: "Panel Solar",
+      mainCategoryCost: 1240, // USD
+      mainCategoryEmision: electricityKWpH,
+      note: "Costo de contado",
+    },
+    // Furnace Combo ()
+    {
+      mainCategory: "Gas Natural",
+      mainCategoryTechnology: "Horno Automático",
+      mainCategoryCost: 25000, // USD por horno
+      mainCategoryEmision: 1,
+      note: "Costo de contado",
+    },
+    {
+      mainCategory: "Gas Natural",
+      mainCategoryTechnology: "Horno Eléctrico",
+      mainCategoryCost: 100000, // USD por horno
+      mainCategoryEmision: 1,
+      note: "Costo de contado",
+    },
+    // Boiler Combo
+    {
+      mainCategory: "Caldera GLP",
+      mainCategoryTechnology: "Boiler Automático",
+      mainCategoryCost: 25000, // USD por horno
+      mainCategoryEmision: 1,
+      note: "Costo de contado",
+    },
+    {
+      mainCategory: "Caldera GLP",
+      mainCategoryTechnology: "Boiler Eléctrico",
+      mainCategoryCost: 50000, // USD por horno
+      mainCategoryEmision: 1,
+      note: "Costo de contado",
+    },
     // Gas Vehicles Combo
     {
       mainCategory: "Vehículos",
-      electricityTechnology: "",
-      electricityCost: 0.10, // $/kWh
-      furnaceNaturalGasTechnology: "",
-      furnaceNaturalGasCost: 0.04, // $/m3
-      boilerLPGTechnology: "",
-      boilerLPGCost: 0.07, // $/litro
-      gasolineVehiclesTechnology: "Hybrido",
-      gasolineVehiclesCost: 1.4, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.6, // $/litro
-      forkliftLPGTechnology: "",
-      forkliftLPGCost: 0.05, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
+      mainCategoryTechnology: "Vehículo Híbrido",
+      mainCategoryCost: 25000, // USD
+      mainCategoryEmision: 1,
+      note: "Costo de contado",
     },
     {
       mainCategory: "Vehículos",
-      electricityTechnology: "",
-      electricityCost: 0.11, // $/kWh
-      furnaceNaturalGasTechnology: "",
-      furnaceNaturalGasCost: 0.06, // $/m3
-      boilerLPGTechnology: "",
-      boilerLPGCost: 0.08, // $/litro
-      gasolineVehiclesTechnology: "Electrico",
-      gasolineVehiclesCost: 1.3, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.4, // $/litro
-      forkliftLPGTechnology: "",
-      forkliftLPGCost: 0.04, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
+      mainCategoryTechnology: "Vehículo Eléctrico",
+      mainCategoryCost: 40000, // USD
+      mainCategoryEmision: 1,
+      note: "Costo de contado",
     },
     // Deisel Vehicles Combo
     {
       mainCategory: "Camiones",
-      electricityTechnology: "",
-      electricityCost: 0.10, // $/kWh
-      furnaceNaturalGasTechnology: "",
-      furnaceNaturalGasCost: 0.04, // $/m3
-      boilerLPGTechnology: "",
-      boilerLPGCost: 0.07, // $/litro
-      gasolineVehiclesTechnology: "Hybrido",
-      gasolineVehiclesCost: 1.4, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.6, // $/litro
-      forkliftLPGTechnology: "",
-      forkliftLPGCost: 0.05, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
+      mainCategoryTechnology: "Camión Híbrido",
+      mainCategoryCost: 80000, // USD
+      mainCategoryEmision: 1,
+      note: "Costo de contado",
     },
     {
       mainCategory: "Camiones",
-      electricityTechnology: "",
-      electricityCost: 0.11, // $/kWh
-      furnaceNaturalGasTechnology: "",
-      furnaceNaturalGasCost: 0.06, // $/m3
-      boilerLPGTechnology: "",
-      boilerLPGCost: 0.08, // $/litro
-      gasolineVehiclesTechnology: "Electrico",
-      gasolineVehiclesCost: 1.3, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.4, // $/litro
-      forkliftLPGTechnology: "",
-      forkliftLPGCost: 0.04, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
+      mainCategoryTechnology: "Camión Eléctrico",
+      mainCategoryCost: 200000, // USD
+      mainCategoryEmision: 1,
+      note: "Costo de contado",
     },
     // Forklift Vehicles Combo
     {
       mainCategory: "Montacargas",
-      electricityTechnology: "",
-      electricityCost: 0.10, // $/kWh
-      furnaceNaturalGasTechnology: "",
-      furnaceNaturalGasCost: 0.04, // $/m3
-      boilerLPGTechnology: "",
-      boilerLPGCost: 0.07, // $/litro
-      gasolineVehiclesTechnology: "",
-      gasolineVehiclesCost: 1.4, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.6, // $/litro
-      forkliftLPGTechnology: "Hybrido",
-      forkliftLPGCost: 0.05, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
+      mainCategoryTechnology: "Montacargas Híbrido",
+      mainCategoryCost: 30000, // USD
+      mainCategoryEmision: 1,
+      note: "Costo de contado",
     },
     {
       mainCategory: "Montacargas",
-      electricityTechnology: "",
-      electricityCost: 0.11, // $/kWh
-      furnaceNaturalGasTechnology: "",
-      furnaceNaturalGasCost: 0.06, // $/m3
-      boilerLPGTechnology: "",
-      boilerLPGCost: 0.08, // $/litro
-      gasolineVehiclesTechnology: "",
-      gasolineVehiclesCost: 1.3, // $/litro
-      dieselTrucksTechnology: "",
-      dieselTrucksCost: 1.4, // $/litro
-      forkliftLPGTechnology: "Electrico",
-      forkliftLPGCost: 0.04, // $/litro
-      totalCost: 0 // This will be calculated based on the inputs
+      mainCategoryTechnology: "Montacargas Eléctrico",
+      mainCategoryCost: 45000, // USD
+      mainCategoryEmision: 1,
+      note: "Costo de contado",
     }
   ];
 
