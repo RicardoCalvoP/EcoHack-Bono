@@ -18,6 +18,7 @@ export type AnalysisItems = {
   mainCategory: string,
   CO2Reduction: number;
   eclecticReduction: number;
+  gasReduction?: number;
   energeticSaving: number;
   initialInversion: number;
   economicSaving: number;
@@ -247,32 +248,34 @@ const Dashboard: React.FC = () => {
       initialInversion: 1240 * electricityKWpH,
       economicSaving: (((((electricity * 0.15) * 12) * 25) - (1240 * electricityKWpH)) / 25) / 12,
       ROI: (((((electricity * 0.15) * 12) * 25) - (1240 * electricityKWpH)) / 25) / (1240 * electricityKWpH) * 100,
-      payback: 88,
+      payback: (Combos[1].mainCategoryCost * Combos[1].mainCategoryEmission) / (((((electricity * 0.15) * 12) * 25) - (1240 * electricityKWpH)) / 25),
       utilLife: 25,
     },
 
     // Gas Natural
     {
       mainCategory: "Gas Natural",
-      CO2Reduction: 99,
-      eclecticReduction: 99,
-      energeticSaving: 99,
-      initialInversion: 99,
-      economicSaving: 99,
-      ROI: 99,
-      payback: 99,
-      utilLife: 99,
+      CO2Reduction: 1.9 * hornoGasNatural,
+      eclecticReduction: NaN,
+      gasReduction: 0.2 * hornoGasNatural,
+      energeticSaving: 20,
+      initialInversion: 25000,
+      economicSaving: (0.2 * hornoGasNatural * 0.37 * 0.37),
+      ROI: ((0.2 * hornoGasNatural * 0.37 * 0.37 * 12) / 25000) * 100,
+      payback: 25000 / (0.2 * hornoGasNatural * 0.37 * 0.37 * 12),
+      utilLife: 2,
     },
     {
       mainCategory: "Gas Natural",
-      CO2Reduction: 88,
-      eclecticReduction: 88,
-      energeticSaving: 88,
-      initialInversion: 88,
-      economicSaving: 88,
-      ROI: 88,
-      payback: 88,
-      utilLife: 88,
+      CO2Reduction: resultadoHornoGasNatural,
+      eclecticReduction: NaN,
+      energeticSaving: 100,
+      gasReduction: hornoGasNatural,
+      initialInversion: 100000,
+      economicSaving: (hornoGasNatural * 0.12),
+      ROI: ((hornoGasNatural * 0.12 * 12) / 100000) * 100,
+      payback: 100000 / (hornoGasNatural * 0.12 * 12),
+      utilLife: 25,
     },
 
     // Caldera GLP

@@ -1,6 +1,6 @@
 import React from 'react';
 import AnalysisCard, { type AnalysisCardProps } from './AnalysisCard';
-import { CloudOff, Zap, Percent, DollarSign, TrendingUp, Clock, RefreshCw, Filter } from 'lucide-react';
+import { CloudOff, Zap, Percent, DollarSign, TrendingUp, Clock, RefreshCw, Droplet} from 'lucide-react';
 import { type AnalysisItems, type ComboItems } from '../dashboard';
 
 type AnalysisProps = {
@@ -17,6 +17,21 @@ const Analysis: React.FC<AnalysisProps> = ({ category, analysisSets, combos, com
   const filetedAnalysis = analysisSets.filter(analysis => analysis.mainCategory === category);
   const actualAnalysis = filetedAnalysis[combo];
 
+  const energyCard: AnalysisCardProps = actualCombo.mainCategoryTechnology === 'Panel Solar' || actualCombo.mainCategoryTechnology == 'PPA'
+    ? {
+        title: 'Reducción Eléctrica',
+        result: actualAnalysis.eclecticReduction.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        subtitle: 'Mensual',
+        icon: <Zap size={28} />,
+        warning: 'low',
+      }
+    : {
+        title: 'Ahorro de combustible',
+        result: (actualAnalysis.gasReduction ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        subtitle: 'kWh Mensual',
+        icon: <Droplet size={28} />,
+        warning: 'low',
+      };
 
   const cards: AnalysisCardProps[] = [
     {
@@ -26,13 +41,7 @@ const Analysis: React.FC<AnalysisProps> = ({ category, analysisSets, combos, com
       icon: <CloudOff size={28} />,
       warning: 'low',
     },
-    {
-      title: 'Reducción Eléctrica',
-      result: actualAnalysis.eclecticReduction.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-      subtitle: 'Mensual',
-      icon: <Zap size={28} />,
-      warning: 'low',
-    },
+    energyCard,
     {
       title: '% Energético Ahorrado',
       result: actualAnalysis.energeticSaving,
@@ -61,7 +70,7 @@ const Analysis: React.FC<AnalysisProps> = ({ category, analysisSets, combos, com
     },
     {
       title: 'Payback',
-      result: actualAnalysis.payback,
+      result: actualAnalysis.payback.toFixed(1),
       icon: <Clock size={28} />,
       warning: 'medium',
     },
