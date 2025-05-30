@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface AnalysisCardProps {
   title: string;
-  result: number;
+  result: number | string;
   subtitle?: string;
   icon: React.ReactNode;
   warning?: 'low' | 'medium' | 'high';

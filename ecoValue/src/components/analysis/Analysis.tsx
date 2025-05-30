@@ -21,14 +21,14 @@ const Analysis: React.FC<AnalysisProps> = ({ category, analysisSets, combos, com
   const cards: AnalysisCardProps[] = [
     {
       title: 'CO₂ Reducido',
-      result: actualAnalysis.CO2Reduction,
-      subtitle: 'Mensual',
+      result: actualAnalysis.CO2Reduction.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+      subtitle: 'kg Mensual',
       icon: <CloudOff size={28} />,
       warning: 'low',
     },
     {
       title: 'Reducción Eléctrica',
-      result: actualAnalysis.eclecticReduction,
+      result: actualAnalysis.eclecticReduction.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       subtitle: 'Mensual',
       icon: <Zap size={28} />,
       warning: 'low',
@@ -38,27 +38,26 @@ const Analysis: React.FC<AnalysisProps> = ({ category, analysisSets, combos, com
       result: actualAnalysis.energeticSaving,
       icon: <Percent size={28} />,
       warning: 'low',
-      progress: 0,
     },
     {
       title: 'Inversión Inicial',
-      result: actualAnalysis.initialInversion,
+      subtitle: 'USD una vez',
+      result: actualAnalysis.initialInversion.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       icon: <DollarSign size={28} />,
       warning: 'medium',
     },
     {
       title: 'Ahorro Económico',
-      result: actualAnalysis.economicSaving,
-      subtitle: 'por año',
+      result: actualAnalysis.economicSaving.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+      subtitle: 'USD mensuales',
       icon: <TrendingUp size={28} />,
       warning: 'low',
     },
     {
       title: 'ROI',
-      result: actualAnalysis.ROI,
+      result: Number(actualAnalysis.ROI.toFixed(0)),
       icon: <Percent size={28} />,
       warning: 'medium',
-      progress: 0,
     },
     {
       title: 'Payback',
@@ -68,6 +67,7 @@ const Analysis: React.FC<AnalysisProps> = ({ category, analysisSets, combos, com
     },
     {
       title: 'Vida Útil',
+      subtitle: 'años',
       result: actualAnalysis.utilLife,
       icon: <RefreshCw size={28} />,
       warning: 'low',
